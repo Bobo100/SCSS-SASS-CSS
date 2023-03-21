@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { CommonPrism } from "../components/Common";
 import Layout from '../components/layout';
 
 
@@ -27,36 +28,136 @@ function HomePage() {
                     相比於 Sass，SCSS 更容易學習，也更容易過度到CSS，並且可以保證所有的CSS代碼都可以在SCSS中起作用。
                 </p>
                 <p>
-                    這裡，我們就當你有學過部分css的基礎知識，並且有一定的css經驗，來介紹SCSS的基礎語法。
+                    這裡，我們就當你有學過部分css的基礎知識，並且有一定的css經驗，來介紹SCSS的特性。之後我們會對每一個特性進行詳細的介紹。
                 </p>
-                <h1>SCSS的基礎語法</h1>
+                <h1>SCSS的特性</h1>
                 <p>
                     SCSS的基礎語法與CSS的基礎語法相似，但是SCSS的語法更加直觀易讀，並且可以使用變量、嵌套規則、混合（mixin）等功能來編寫 CSS 代碼。
                 </p>
-                <h2>巢狀規則</h2>
+                <h2>巢狀規則 / 嵌套規則</h2>
                 <p>
                     巢狀規則：SCSS提供了類似編程語言的巢狀規則功能，可以將一個規則巢狀在另一個規則中。
                 </p>
+                <CommonPrism>
+                    {`.parent {
+    color: red;
+    .child {
+        color: blue;
+    }
+}`}
+                </CommonPrism>
+
                 <h2>變數</h2>
                 <p>
                     變數：SCSS提供了類似編程語言的變數功能，用於存儲可以重複使用的值。
                 </p>
-                <h2>模組化</h2>
+                <CommonPrism>
+                    {`$color: red;
+.parent {
+    color: $color;
+}`}
+                </CommonPrism>
+
+                <h2>模組化 / 選擇性引入(選擇器)</h2>
                 <p>
                     模組化：SCSS提供了模組化的功能，可以將一個SCSS文件拆分成多個SCSS文件，並且可以將多個SCSS文件合併成一個SCSS文件。
                 </p>
-                <h2>嵌套規則</h2>
-                <p>
-                    嵌套規則：SCSS提供了類似編程語言的嵌套規則功能，可以將一個規則嵌套在另一個規則中。
-                </p>
+                <CommonPrism>
+                    {`// _base.scss
+$color: red;
+.parent {
+    color: $color;
+}
+
+// _child.scss
+.parent {
+    .child {
+        color: blue;
+    }
+}
+
+// main.scss
+@import "base";
+@import "child";`}
+                </CommonPrism>
+
                 <h2>混合（mixin）</h2>
                 <p>
                     混合（mixin）：SCSS提供了類似編程語言的混合（mixin）功能，可以將一個規則集合起來，以便在其他規則中重複使用。
                 </p>
+                <CommonPrism>
+                    {`@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+}
+.box {
+    @include border-radius(10px);
+}`}
+                </CommonPrism>
+
                 <h2>繼承</h2>
                 <p>
                     繼承：SCSS提供了類似編程語言的繼承功能，可以將一個規則繼承到另一個規則中。
                 </p>
+                <CommonPrism>
+                    {`%message-shared {
+    border: 1px solid #ccc;
+    padding: 10px;
+    color: #333;
+}
+.success {
+    @extend %message-shared;
+    border-color: green;
+}
+.error {
+    @extend %message-shared;
+    border-color: red;
+}`}
+                </CommonPrism>
+
+                <h2>函數</h2>
+                <p>
+                    函數：SCSS提供了類似編程語言的函數功能，可以將一個規則集合起來，以便在其他規則中重複使用。
+                </p>
+                <CommonPrism>
+                    {`@function double($n) {
+    @return $n * 2;
+}
+div {
+    width: double(5px);
+}`}
+                </CommonPrism>
+
+                <h2>運算</h2>
+                <p>
+                    運算：SCSS提供了類似編程語言的運算功能，可以將一個規則集合起來，以便在其他規則中重複使用。
+                </p>
+                <CommonPrism>
+                    {`div {
+    width: (5px * 2);
+}`}
+                </CommonPrism>
+
+                <h2>控制指令</h2>
+                <p>
+                    控制指令：SCSS提供了類似編程語言的控制指令功能，可以將一個規則集合起來，以便在其他規則中重複使用。
+                </p>
+                <CommonPrism>
+                    {`$type: monster;
+@mixin make-it-so($type) {
+    @if $type == ocean {
+        color: blue;
+    } @else if $type == monster {
+        color: green;
+    } @else {
+        color: red;
+    }
+}
+div {
+    @include make-it-so($type);
+}`}
+                </CommonPrism>
             </div>
         </Layout>
     )
