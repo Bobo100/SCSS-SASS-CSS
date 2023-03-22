@@ -83,7 +83,7 @@ $color: red;
 
                 <h2>混合（mixin）</h2>
                 <p>
-                    混合（mixin）：SCSS提供了類似編程語言的混合（mixin）功能，可以將一個規則集合起來，以便在其他規則中重複使用。
+                    混合（mixin）：SCSS提供了類似編程語言的混合（mixin）功能，可以將一個規則集合起來，以便在其他規則中重複使用。寫法是在規則後面加上@mixin，然後在後面加上混合的名稱。
                 </p>
                 <CommonPrism>
                     {`@mixin border-radius($radius) {
@@ -98,8 +98,17 @@ $color: red;
 
                 <h2>繼承</h2>
                 <p>
-                    繼承：SCSS提供了類似編程語言的繼承功能，可以將一個規則繼承到另一個規則中。
+                    繼承：SCSS提供了類似編程語言的繼承功能，可以將一個規則繼承到另一個規則中。寫法是在規則後面加上@extend，然後在後面加上要繼承的規則。那就得提到一個問題，就是繼承的規則必須是一個佔位符（placeholder）。
                 </p>
+                <p>
+                    % 在 SCSS 中被稱為 Placeholder Selectors（佔位符選擇器），它們不是繼承。在 SCSS 中，我們可以使用 % 符號來定義一個名稱以百分比符號開頭的選擇器。
+                    Placeholder 選擇器通常用於希望重複使用的樣式塊中，可以通過 @extend 將這些樣式應用到實際的 CSS 選擇器。因此，您可以將相同的樣式應用於多個不同的選擇器，使代碼更加簡潔和易於維護。
+                </p>
+
+                <p className="hightlight">
+                    一般而言，placeholder selectors 主要用於定義通用樣式，比如布局、動畫等，而不是單獨的元素樣式。在實際開發中需要注意 placeholder selectors 的使用次數和按需引入，以減少樣式表的大小和編譯時間。
+                </p>
+
                 <CommonPrism>
                     {`%message-shared {
     border: 1px solid #ccc;
