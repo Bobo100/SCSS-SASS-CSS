@@ -7,7 +7,7 @@ function HomePage() {
     return (
         <Layout>
             <Head>
-                <title>Home</title>
+                <title>SCSS介紹</title>
             </Head>
             <div>
                 <h1>SCSS介紹</h1>
