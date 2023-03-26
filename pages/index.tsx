@@ -49,12 +49,23 @@ function HomePage() {
 
                 <h2>變數</h2>
                 <p>
-                    變數：SCSS提供了類似編程語言的變數功能，用於存儲可以重複使用的值。
+                    變數：SCSS提供了類似編程語言的變數功能，用於存儲可以重複使用的值。做法是使用$符號開頭，然後是變數的名稱。另外如果是要將變數的值作為選擇器的一部分，則需要在變數名稱前面加上#，並且加上{`\{ \}`}。
                 </p>
                 <CommonPrism>
                     {`$color: red;
 .parent {
     color: $color;
+}
+
+// 你也可以這樣寫
+$color: red;
+p.#{$color} {
+  color: $color;
+}
+
+// 編譯後
+p.red {
+    color: red;
 }`}
                 </CommonPrism>
 
@@ -83,7 +94,7 @@ $color: red;
 
                 <h2>混合（mixin）</h2>
                 <p>
-                    混合（mixin）：SCSS提供了類似編程語言的混合（mixin）功能，可以將一個規則集合起來，以便在其他規則中重複使用。寫法是在規則後面加上@mixin，然後在後面加上混合的名稱。
+                    混合（mixin）：SCSS提供了類似編程語言的混合（mixin）功能，功能是寫好之後，可以在其他規則中重複使用。寫法是在規則後面加上@mixin，然後在後面加上混合的名稱。
                 </p>
                 <CommonPrism>
                     {`@mixin border-radius($radius) {
@@ -93,6 +104,45 @@ $color: red;
 }
 .box {
     @include border-radius(10px);
+}`}
+                </CommonPrism>
+
+                <h2>函數</h2>
+                <p>
+                    函數：SCSS提供了類似編程語言的函數功能，可以將一個規則集合起來，以便在其他規則中重複使用。
+                </p>
+                <CommonPrism>
+                    {`@function double($n) {
+    @return $n * 2;
+}
+div {
+    width: double(5px);
+}`}
+                </CommonPrism>
+
+                <h2>mixin和函數的區別</h2>
+                <p>
+                    Mixin 是一種將一組樣式屬性和值打包起來的機制，可以在需要的地方調用並插入這組樣式。 Mixin 中可以包含變量、條件語句、循環等高級語言特性，<span>可以根據需要動態地生成樣式</span>。
+                </p>
+                <p>
+                    Function 是一種用於執行數學和邏輯運算的機制，可以接受一個或多個參數，對其進行運算並返回結果。 Function 中可以包含變量、條件語句等高級語言特性，<span>但是不能直接生成樣式，它只能返回一個值</span>。
+                </p>
+
+                <CommonPrism>
+                    {`@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+}
+.box {
+    @include border-radius(10px); // 調用mixin 會得到樣式
+}
+
+@function double($n) {
+    @return $n * 2;
+}
+div {
+    width: double(5px); // 調用function 會得到值 
 }`}
                 </CommonPrism>
 
@@ -125,28 +175,122 @@ $color: red;
 }`}
                 </CommonPrism>
 
-                <h2>函數</h2>
-                <p>
-                    函數：SCSS提供了類似編程語言的函數功能，可以將一個規則集合起來，以便在其他規則中重複使用。
-                </p>
-                <CommonPrism>
-                    {`@function double($n) {
-    @return $n * 2;
-}
-div {
-    width: double(5px);
-}`}
-                </CommonPrism>
-
                 <h2>運算</h2>
                 <p>
                     運算：SCSS提供了類似編程語言的運算功能，可以將一個規則集合起來，以便在其他規則中重複使用。
                 </p>
+                <p>
+                    CSS也可以使用calc()函數來進行運算，可是只能夠進行四則運算，並且不能夠進行變量的運算。但是SCSS可以進行變量的運算。
+                </p>
                 <CommonPrism>
-                    {`div {
+                    {`$angle: 45deg;                    
+div {
     width: (5px * 2);
 }`}
                 </CommonPrism>
+                <p>變量運算的例子</p>
+                <CommonPrism>
+                    {`$width: 100px;
+$height: 50px;
+$padding: 10px;
+$border: 1px solid #000;
+$margin: 10px;
+$box: $width + $height + $padding + $border + $margin;
+
+div {
+    width: $box;
+}`}
+                </CommonPrism>
+
+                <CommonPrism>
+                    {`$font-size: 16px;
+
+@mixin font($size) {
+  font-size: $size;
+  line-height: $size * 1.2;
+}
+
+h1 {
+  @include font($font-size * 2);
+}
+
+p {
+  @include font($font-size);
+}
+`}
+                </CommonPrism>
+
+                <h2>條件語句</h2>
+                <p>
+                    條件語句：SCSS提供了類似編程語言的條件語句功能，目前有以下幾種條件語句：
+                </p>
+                <h3>if else</h3>
+                <CommonPrism>
+                    {`$type: monster;
+@mixin monster {
+    border: 1px solid #ccc;
+}
+@mixin ghost {
+    border: 1px solid #fff;
+}
+@mixin border {
+    @if $type == monster {
+        @include monster;
+    } @else if $type == ghost {
+        @include ghost;
+    }
+}
+div {
+    @include border;
+}`}
+                </CommonPrism>
+
+                <h3>while 迴圈</h3>
+                <CommonPrism>
+                    {`$i: 6;
+@while $i > 0 {
+    .item-#{$i} { width: 2em * $i; }
+    $i: $i - 2;
+}
+
+// 編譯後
+.item-6 { width: 12em; }
+.item-4 { width: 8em; }
+.item-2 { width: 4em; }`}
+                </CommonPrism>
+
+                <h3>for 迴圈</h3>
+                <CommonPrism>
+                    {`@for $i from 1 through 3 {
+    .item-#{$i} { width: 2em * $i; }
+}
+
+// 編譯後
+.item-1 { width: 2em; }
+.item-2 { width: 4em; }
+.item-3 { width: 6em; }
+
+// 也有這種寫法
+@for $var from start through end { ... }
+// 其中start是起始值，end是結束值，var是迴圈變量，可以是任意的變量名稱。
+`}
+                </CommonPrism>
+
+                <h3>each 迴圈</h3>
+                <p>
+                    each 迴圈：each 迴圈可以遍歷一個列表，並將列表中的每個元素賦值給一個變量，然後在迴圈內部使用這個變量。
+                </p>
+                <CommonPrism>
+                    {` // 這個例子中，$animal變量會被賦值為puma、sea-slug、egret和salamander這四個值，然後在迴圈內部使用這個變量。
+@each $animal in puma, sea-slug, egret, salamander {
+    .#{$animal}-icon {
+        background-image: url('/images/#{$animal}.png');
+    }
+}`}
+                </CommonPrism>
+
+                <p className="hightlight">注意：</p>
+                <p>SCSS 的條件語句只在編譯時處理，即 SCSS 文件被轉換成 CSS 文件之前。一旦 CSS 文件生成，其中就沒有任何 SCSS 的條件語句了。這意味著 SCSS 的條件語句無法在瀏覽器中動態修改。</p>
 
                 <h2>控制指令</h2>
                 <p>

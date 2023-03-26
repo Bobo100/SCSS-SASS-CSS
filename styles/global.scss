@@ -285,3 +285,13 @@ span {
     //     color: pink;
     // }
 }
+
+$color: green;
+
+body.#{$color} {
+    @if $color == green {
+        background-color: $color;
+    } @else {
+        background-color: red;
+    }
+}

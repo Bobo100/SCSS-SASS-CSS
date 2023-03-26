@@ -114,7 +114,7 @@ sibling_1
                 </div>
                 <p>上面的意思是，只要是 .parent_2 下面的 .child_2 的元素，就會變成紅色。而 .child_2_2 不會變成紅色。</p>
 
-                <h3>and符號</h3>
+                <h3>and符號 &</h3>
                 <p>選擇器之間的and符號表示選擇器的父代</p>
                 <CommonPrism>
                     {`.parent_3 {
@@ -148,7 +148,7 @@ sibling_1
                 <p>另外我們還新增了&:hover 也一樣意思就會變成 .parent_3:hover，所以，當我們滑鼠移動到 .parent_3的範圍(整個包含child grandson) 時，.整個範圍都會 變成綠色。(只是我們這裡子元素有用其他顏色蓋過去)</p>
                 <p>當然我們也有新增假如不加上&，就會變成 :hover，將影響這個元素下的所有子代元素，所以，當我們滑鼠移動到 .child_3 時，會變成白色。</p>
                 <Link href="/Hover" className={router.pathname === "/Hover" ? "active" : ""}>Hover</Link>
-                <h3>大於號</h3>
+                <h3>大於號 {`>`}</h3>
                 <p>選擇器之間的大於號表示選擇器的子代</p>
                 <CommonPrism>
                     {`.parent_4 > .child_4 {
@@ -171,7 +171,7 @@ sibling_1
                 </div>
                 <p>上面的意思是，只要是 .parent_4 下面的 .child_4 的元素，就會變成紅色。當然也包含.child_4的子元素，向是 .grandchild_4。但是 .child_4_4 不會變成紅色，因為 .child_4_4 不是 .child_4 的子元素。</p>
 
-                <h3>加號</h3>
+                <h3>加號 +</h3>
                 <p>選擇器之間的加號表示選擇器的兄弟，只會影響第一個兄弟</p>
                 <CommonPrism>
                     {`.parent_5 + .sibling_5 {
@@ -187,18 +187,20 @@ sibling_1
                 <div className="sibling_5">sibling_5</div>
                 <p>可以看到parent_5的兄弟有兩個，但是只有第一個會變成紅色。</p>
 
-                <h3>波浪號</h3>
-                <p>選擇器之間的波浪號表示選擇器的兄弟，會影響所有兄弟</p>
+                <h3>波浪號 ~</h3>
+                <p>選擇器之間的波浪號表示選擇器的兄弟，會影響之後的所有兄弟</p>
                 <CommonPrism>
                     {`.parent_6 ~ .sibling_6 {
     color: red;
 }`}
                 </CommonPrism>
                 <CommonPrismHhtml>
-                    {`<div className="parent_6">parent_6</div>
+                    {`<div className="sibling_6">sibling_6</div>
+<div className="parent_6">parent_6</div>
 <div className="sibling_6">sibling_6</div>
 <div className="sibling_6">sibling_6</div>`}
                 </CommonPrismHhtml>
+                <div className="sibling_6">sibling_6</div>
                 <div className="parent_6">parent_6</div>
                 <div className="sibling_6">sibling_6</div>
                 <div className="sibling_6">sibling_6</div>
