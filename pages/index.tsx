@@ -286,31 +286,26 @@ div {
     .#{$animal}-icon {
         background-image: url('/images/#{$animal}.png');
     }
+}
+
+// 編譯後
+.puma-icon {
+    background-image: url('/images/puma.png');
+}
+.sea-slug-icon {
+    background-image: url('/images/sea-slug.png');
+}
+.egret-icon {
+    background-image: url('/images/egret.png');
+}
+.salamander-icon {
+    background-image: url('/images/salamander.png');
 }`}
                 </CommonPrism>
 
                 <p className="hightlight">注意：</p>
                 <p>SCSS 的條件語句只在編譯時處理，即 SCSS 文件被轉換成 CSS 文件之前。一旦 CSS 文件生成，其中就沒有任何 SCSS 的條件語句了。這意味著 SCSS 的條件語句無法在瀏覽器中動態修改。</p>
 
-                <h2>控制指令</h2>
-                <p>
-                    控制指令：SCSS提供了類似編程語言的控制指令功能，可以將一個規則集合起來，以便在其他規則中重複使用。
-                </p>
-                <CommonPrism>
-                    {`$type: monster;
-@mixin make-it-so($type) {
-    @if $type == ocean {
-        color: blue;
-    } @else if $type == monster {
-        color: green;
-    } @else {
-        color: red;
-    }
-}
-div {
-    @include make-it-so($type);
-}`}
-                </CommonPrism>
             </div>
         </Layout>
     )
