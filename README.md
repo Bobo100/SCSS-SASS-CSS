@@ -1,3 +1,3 @@
-# cra-template-boboNext.js
+# SCSS-SASS-CSS
 
-存放個人的基礎設定檔案 (測試版)
+SCSS-SASS-CSS
