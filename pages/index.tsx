@@ -2,7 +2,6 @@ import Head from "next/head";
 import { CommonPrism } from "../components/Common";
 import Layout from '../components/layout';
 
-
 function HomePage() {
     return (
         <Layout>
